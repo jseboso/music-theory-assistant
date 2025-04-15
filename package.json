@@ -1,0 +1,90 @@
+{
+  "name": "music-theory-assistant",
+  "version": "0.1.0",
+  "description": "A full-stack music theory assistant application for learning music theory",
+  "author": {
+    "name": "Your Name",
+    "email": "your.email@example.com"
+  },
+  "private": true,
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "electron:dev": "concurrently \"npm run dev\" \"wait-on http://localhost:3000 && cross-env NODE_ENV=development electron electron/main.js\"",
+    "electron:build": "next build && cross-env NODE_ENV=production electron-builder",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "cypress": "cypress open"
+  },
+  "build": {
+    "appId": "com.yourname.music-theory-assistant",
+    "productName": "Music Theory Assistant",
+    "files": [
+      "electron/**/*",
+      "out/**/*",
+      "package.json"
+    ],
+    "extraMetadata": {
+      "main": "electron/main.js"
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "mac": {
+      "target": []
+    },
+    "linux": {
+      "target": []
+    }
+  },
+  "dependencies": {
+    "@prisma/client": "^6.6.0",
+    "@supabase/auth-helpers-nextjs": "^0.10.0",
+    "@supabase/auth-helpers-react": "^0.5.0",
+    "@supabase/supabase-js": "^2.49.4",
+    "bcrypt": "^5.1.1",
+    "cookie": "^1.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "next": "15.3.0",
+    "prisma": "^6.6.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tone": "^15.0.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.4",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/cookie": "^0.6.0",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^20.17.30",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "cypress": "^14.3.0",
+    "electron": "^35.1.5",
+    "electron-builder": "^26.0.12",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "wait-on": "^8.0.3"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  }
+}

@@ -1,0 +1,62 @@
+music-theory-assistant/
+├── .next/
+│   └── ...
+├── electron/
+│   ├── main.js
+│   └── preload.js
+├── node_modules/
+│   └── ...
+├── prisma/
+│   ├── migrations/
+│   └── schema.prisma
+├── public/
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   └── auth/
+│   │   │       ├── callback/
+│   │   │       │   └── route.ts
+│   │   │       └── login.ts
+│   │   ├── dashboard/
+│   │   │   └── page.tsx
+│   │   ├── lessons/
+│   │   │   ├── 0/
+│   │   │   └── page.tsx
+│   │   ├── login/
+│   │   │   └── page.tsx
+│   │   ├── quizzes/
+│   │   │   ├── 0/
+│   │   │   └── page.tsx
+│   │   ├── tools/
+│   │   │   ├── chord-finder/
+│   │   │   │   └── page.tsx
+│   │   │   ├── ear-training/
+│   │   │   │   └── page.tsx
+│   │   │   ├── metronome/
+│   │   │   │   └── page.tsx
+│   │   │   ├── scale-explorer/
+│   │   │   │   └── page.tsx
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components/
+│   │   ├── LessonCard.tsx
+│   │   ├── PianoKeyboard.tsx
+│   │   └── SupabaseProvider.tsx
+│   ├── lib/
+│   │   └── supabase.ts
+├── .env
+├── .env.local
+├── .gitignore
+├── jest.config.js
+├── jest.setup.js
+├── next-env.d.ts
+├── next-env.js
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── README.md
+├── tailwind.config.js
+└── tsconfig.json

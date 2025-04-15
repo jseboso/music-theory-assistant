@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String     
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  profile         UserProfile?
+  lessonProgress  LessonProgress[]
+  quizResults     QuizResult[]
+}
+
+model UserProfile {
+  id            String   @id @default(uuid())
+  userId        String   @unique
+  streakDays    Int      @default(0)
+  lastActiveDate DateTime @default(now())
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Lesson {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  content     Json     // Changed to Json to store structured content sections
+  resources   Json?    // Optional array of resource objects
+  duration    Int      // in minutes
+  orderNumber Int
+  categoryId  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  category       LessonCategory @relation(fields: [categoryId], references: [id])
+  lessonProgress LessonProgress[]
+  quizzes        Quiz[]         // A lesson can have multiple quizzes
+}
+
+model LessonCategory {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  orderNumber Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  lessons Lesson[]
+}
+
+model LessonProgress {
+  id             String   @id @default(uuid())
+  userId         String
+  lessonId       String
+  progress       Int      @default(0) // percentage completed
+  currentSection Int      @default(0) // Current section the user is on
+  completed      Boolean  @default(false)
+  startedAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, lessonId])
+}
+
+model Quiz {
+  id          String   @id @default(uuid())
+  title       String
+  description String   // Added description field
+  lessonId    String
+  difficulty  String   // beginner, intermediate, advanced
+  orderNumber Int
+  estimatedTime Int    // in minutes
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  lesson      Lesson       @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  questions   QuizQuestion[]
+  quizResults QuizResult[]
+}
+
+model QuizQuestion {
+  id          String   @id @default(uuid())
+  quizId      String
+  question    String
+  options     Json     // Changed to Json for better structure
+  correctAnswer Int    // Index of the correct option
+  explanation String?
+  orderNumber Int
+  
+  quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+}
+
+model QuizResult {
+  id        String   @id @default(uuid())
+  userId    String
+  quizId    String
+  score     Int      // Percentage score
+  answers   Json     // Array of user's answers
+  completed Boolean  @default(true)
+  completedAt DateTime @default(now())
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, quizId])
+}
