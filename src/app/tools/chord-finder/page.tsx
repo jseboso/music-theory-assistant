@@ -24,7 +24,6 @@ function ChordFinderContent() {
   const { initializeTone, playChord, isAudioInitialized, createPolySynth } = useAudio();
 
   useEffect(() => {
-    // Initialize audio
     initializeTone();
   }, [initializeTone]);
 
@@ -44,10 +43,8 @@ function ChordFinderContent() {
     
     const notesWithOctave = chordNotes.map(note => getNoteWithOctave(note, octave));
     
-    // Update active notes for piano visualization
     setActiveChordNotes(chordNotes);
     
-    // Play the chord
     playChord(notesWithOctave, "2n");
     
     setTimeout(() => {
@@ -62,10 +59,8 @@ function ChordFinderContent() {
     
     const notesWithOctave = chordNotes.map(note => getNoteWithOctave(note, octave));
     
-    // Update active notes for piano visualization
     setActiveChordNotes(chordNotes);
     
-    // Play each note of the chord sequentially
     const polySynth = createPolySynth();
     const now = Tone.now();
     notesWithOctave.forEach((note, index) => {
@@ -78,12 +73,10 @@ function ChordFinderContent() {
     }, notesWithOctave.length * 250 + 500);
   };
   
-  // Function to clear the active notes on the piano
   const clearActiveNotes = () => {
     setActiveChordNotes([]);
   };
 
-  // Helper function to get chord description
   const getChordDescription = (chordId: string): string => {
     switch (chordId) {
       case 'major':
@@ -109,7 +102,6 @@ function ChordFinderContent() {
     }
   };
 
-  // Helper function to get chord uses
   const getChordUses = (chordId: string): string => {
     switch (chordId) {
       case 'major':
@@ -270,7 +262,6 @@ function ChordFinderContent() {
   );
 }
 
-// Import Tone at the highest level
 import * as Tone from 'tone';
 
 export default function ChordFinderTool() {

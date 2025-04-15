@@ -1,4 +1,3 @@
-// pianoKeyboard code
 "use client";
 
 import React from 'react';
@@ -16,20 +15,15 @@ export default function PianoKeyboard({
   endOctave = 5,
   showLabels = true
 }: PianoKeyboardProps) {
-  // Define all notes in an octave
   const allNotes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
   
-  // Convert activeNotes to a normalized format for comparison
   const normalizedActiveNotes = activeNotes.map(note => {
-    // If note contains an octave number (e.g., "C4"), use it as is
     if (/[A-G]#?\d/.test(note)) {
       return note;
     }
-    // Otherwise, use the default octave (4 for middle octave)
     return `${note}4`;
   });
   
-  // Generate all keys for the keyboard
   const generateKeys = () => {
     const keys = [];
     
@@ -37,10 +31,7 @@ export default function PianoKeyboard({
       allNotes.forEach(note => {
         const fullNote = `${note}${octave}`;
         const isSharp = note.includes('#');
-        
-        // Check if this note is active
-        // We need to check if the note without octave is active (for chord display)
-        // or if the full note with octave is active
+
         const isActive = 
           normalizedActiveNotes.includes(fullNote) || 
           activeNotes.includes(note);
@@ -60,12 +51,9 @@ export default function PianoKeyboard({
 
   const keys = generateKeys();
   
-  // Function to get key label
   const getKeyLabel = (key: {note: string, octave: number}) => {
-    // Remove sharp symbol for display and just show note name
     const displayNote = key.note.replace('#', '');
     
-    // Only show octave number for C keys if requested
     const shouldShowOctave = key.note === 'C' && showLabels;
     
     return `${displayNote}${shouldShowOctave ? key.octave : ''}`;
@@ -105,13 +93,9 @@ export default function PianoKeyboard({
           {keys.map((key, index) => {
             if (!key.isSharp) return null;
             
-            // Calculate position based on the white keys
-            // Each black key is positioned between two white keys
             const noteIndex = allNotes.indexOf(key.note.replace('#', ''));
-            const octaveOffset = (key.octave - startOctave) * 7 * 40; // 7 white keys per octave
+            const octaveOffset = (key.octave - startOctave) * 7 * 40;
             
-            // Position needs to account for the pattern of white keys
-            // C# is after C, D# is after D, etc.
             let position;
             
             if (key.note === 'C#') position = 25 + octaveOffset;

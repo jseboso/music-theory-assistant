@@ -36,7 +36,6 @@ export async function POST(request: Request) {
       { expiresIn: '1d' }
     );
 
-    // Set the cookie - now with await
     const cookieStore = await cookies();
     cookieStore.set({
       name: 'token',

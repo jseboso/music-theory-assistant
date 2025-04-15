@@ -2,7 +2,6 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function main() {
-  // Create categories
   const basicsCategory = await prisma.lessonCategory.create({
     data: {
       name: 'Music Basics',
@@ -27,7 +26,6 @@ async function main() {
     },
   });
 
-  // Create notation lesson
   const notationLesson = await prisma.lesson.create({
     data: {
       title: 'Introduction to Music Notation',
@@ -60,7 +58,6 @@ async function main() {
     },
   });
 
-  // Create notation quiz
   const notationQuiz = await prisma.quiz.create({
     data: {
       title: 'Music Notation Fundamentals',
@@ -72,7 +69,6 @@ async function main() {
     },
   });
 
-  // Create quiz questions
   await prisma.quizQuestion.create({
     data: {
       quizId: notationQuiz.id,

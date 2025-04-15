@@ -35,7 +35,6 @@ export default function LessonPage({ params }: LessonParams) {
       
       setUser(data.user);
       
-      // Fetch lesson data
       try {
         const { data: lessonData, error } = await supabase
           .from('lessons')
@@ -47,7 +46,6 @@ export default function LessonPage({ params }: LessonParams) {
         
         setLesson(lessonData);
         
-        // Fetch user's progress for this lesson
         const { data: progressData, error: progressError } = await supabase
           .from('user_lesson_progress')
           .select('*')
@@ -72,11 +70,9 @@ export default function LessonPage({ params }: LessonParams) {
   const updateProgress = async (newSection: number, newProgress: number) => {
     if (!user || !lesson) return;
     
-    // Update progress in state
     setCurrentSection(newSection);
     setProgress(newProgress);
     
-    // Update progress in database
     try {
       const { error } = await supabase
         .from('user_lesson_progress')
@@ -118,7 +114,6 @@ export default function LessonPage({ params }: LessonParams) {
     if (!user || !lesson) return;
     
     try {
-      // Mark lesson as completed
       const { error } = await supabase
         .from('user_lesson_progress')
         .upsert({
@@ -132,7 +127,6 @@ export default function LessonPage({ params }: LessonParams) {
         
       if (error) throw error;
       
-      // Redirect to quiz if available
       if (lesson.quiz_id) {
         router.push(`/quizzes/${lesson.quiz_id}`);
       } else {
@@ -178,7 +172,6 @@ export default function LessonPage({ params }: LessonParams) {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div className="md:col-span-3">
           <Card>
-            {/* Progress indicator */}
             <div className="mb-6">
               <div className="flex justify-between items-center mb-2">
                 <p className="text-sm text-gray-600">
@@ -191,18 +184,15 @@ export default function LessonPage({ params }: LessonParams) {
               <ProgressBar progress={progress} height="sm" showPercentage={false} />
             </div>
             
-            {/* Section title */}
             <h3 className="text-2xl font-bold text-gray-800 mb-4">
               {currentContent.title}
             </h3>
             
-            {/* Section content */}
             <div 
               className="prose max-w-none mb-8" 
               dangerouslySetInnerHTML={{ __html: currentContent.body }}
             />
             
-            {/* Navigation buttons */}
             <div className="flex justify-between mt-8">
               <Button
                 onClick={handlePreviousSection}

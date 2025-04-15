@@ -130,7 +130,6 @@ interface ScaleType {
     } else if (scaleId === 'blues') {
       return ['1', '♭3', '4', '♭5', '5', '♭7'];
     } else {
-      // For other scales, just use numbers
       const scaleType = scaleTypes.find(type => type.id === scaleId);
       return scaleType ? Array.from({ length: scaleType.formula.length }, (_, i) => `${i + 1}`) : [];
     }
@@ -144,14 +143,12 @@ interface ScaleType {
     } else if (scaleId === 'harmonic_minor') {
       return ['i', 'ii°', '♭III', 'iv', 'V', '♭VI', 'vii°'];
     } else {
-      // For other scales, just use empty strings
       const scaleType = scaleTypes.find(type => type.id === scaleId);
       return scaleType ? Array.from({ length: scaleType.formula.length }, () => '') : [];
     }
   };
   
   export function getNoteWithOctave(note: string, octave: number): string {
-    // If note already includes an octave, extract just the note name
     if (/[A-G]#?\d/.test(note)) {
       const noteName = note.replace(/\d+$/, '');
       return `${noteName}${octave}`;

@@ -1,4 +1,3 @@
-// home
 import Link from 'next/link';
 
 export default function Home() {
@@ -24,7 +23,6 @@ export default function Home() {
       </header>
       
       <main className="flex-grow">
-        {/* Hero Section */}
         <section className="py-16 md:py-24 px-4">
           <div className="container mx-auto max-w-5xl">
             <div className="text-center mb-12">

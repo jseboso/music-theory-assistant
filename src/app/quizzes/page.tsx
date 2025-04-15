@@ -38,7 +38,6 @@ export default function QuizzesPage() {
       
       setUser(data.user);
       
-      // Fetch quizzes
       try {
         const { data: quizzesData, error } = await supabase
           .from('quizzes')
@@ -78,7 +77,6 @@ export default function QuizzesPage() {
       user={user}
       onSignOut={handleSignOut}
     >
-      {/* Difficulty Filter */}
       <div className="mb-8">
         <h3 className="text-lg font-medium text-gray-700 mb-3">Difficulty</h3>
         <div className="flex flex-wrap gap-2">
@@ -109,7 +107,6 @@ export default function QuizzesPage() {
         </div>
       </div>
       
-      {/* Quizzes Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {filteredQuizzes.length > 0 ? (
           filteredQuizzes.map((quiz) => (

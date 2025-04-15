@@ -5,15 +5,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 
-// Components
 import { PageContainer } from '@/components/layout/PageContainer';
 import { Loading } from '@/components/ui/Loading';
 import { Card } from '@/components/ui/Card';
 import { StatsCard } from '@/components/ui/StatsCard';
 import { ProgressBar } from '@/components/ui/ProgressBar';
-import { LinkButton } from '@/components/ui/Button';
 import LessonCard from '@/components/LessonCard';
-import { MusicIcon } from '@/components/ui/Icons';
 
 export default function Dashboard() {
   const [user, setUser] = useState<any>(null);
@@ -32,7 +29,6 @@ export default function Dashboard() {
       
       setUser(data.user);
       
-      // Fetch lessons
       try {
         const { data: lessonsData, error } = await supabase
           .from('lessons')
@@ -69,7 +65,6 @@ export default function Dashboard() {
     lastActivity: '2 days ago'
   };
 
-  // Sample data for recent activities
   const recentActivities = [
     { id: 1, type: 'Lesson Completed', name: 'Introduction to Musical Notes', date: 'Yesterday' },
     { id: 2, type: 'Quiz Passed', name: 'Identifying Major Scales', date: '3 days ago' },
@@ -83,7 +78,6 @@ export default function Dashboard() {
       user={user}
       onSignOut={handleSignOut}
     >
-      {/* Progress Overview */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <StatsCard 
           title="Lessons Completed" 
@@ -108,7 +102,6 @@ export default function Dashboard() {
         />
       </div>
       
-      {/* Continue Learning Section */}
       <div className="mb-12">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-2xl font-bold text-gray-800">Continue Learning</h3>
@@ -124,7 +117,6 @@ export default function Dashboard() {
         </div>
       </div>
       
-      {/* Recent Activity */}
       <div className="mb-12">
         <h3 className="text-2xl font-bold text-gray-800 mb-6">Recent Activity</h3>
         
@@ -145,7 +137,6 @@ export default function Dashboard() {
         </Card>
       </div>
       
-      {/* Quick Access Tools */}
       <div>
         <h3 className="text-2xl font-bold text-gray-800 mb-6">Quick Access Tools</h3>
         

@@ -15,7 +15,6 @@ import {
   getRomanNumerals
 } from '@/components/music/MusicTheory';
 
-// Import Tone for now functionality
 import * as Tone from 'tone';
 
 function ScaleExplorerContent() {
@@ -32,12 +31,10 @@ function ScaleExplorerContent() {
   } = useAudio();
 
   useEffect(() => {
-    // Initialize audio
     initializeTone();
   }, [initializeTone]);
 
   useEffect(() => {
-    // Update scale notes when root or scale type changes
     const notes = calculateScaleNotes(selectedRoot, selectedScale);
     setScaleNotes(notes);
   }, [selectedRoot, selectedScale]);
@@ -48,12 +45,10 @@ function ScaleExplorerContent() {
     setIsPlaying(true);
     
     const notesWithOctave = [...scaleNotes, scaleNotes[0]].map((note, index) => {
-      // If we've wrapped around to the next octave
       const adjustedOctave = index === scaleNotes.length ? octave + 1 : octave;
       return getNoteWithOctave(note, adjustedOctave);
     });
     
-    // Play each note of the scale sequentially
     const now = Tone.now();
     const synth = createSynth();
     notesWithOctave.forEach((note, index) => {
@@ -72,12 +67,10 @@ function ScaleExplorerContent() {
     setIsPlaying(true);
     
     const notesWithOctave = [scaleNotes[0], ...scaleNotes.slice().reverse()].map((note, index) => {
-      // If it's the highest note (first in descending order)
       const adjustedOctave = index === 0 ? octave + 1 : octave;
       return getNoteWithOctave(note, adjustedOctave);
     });
     
-    // Play each note of the scale sequentially
     const now = Tone.now();
     const synth = createSynth();
     notesWithOctave.forEach((note, index) => {
@@ -90,7 +83,6 @@ function ScaleExplorerContent() {
     }, notesWithOctave.length * 250 + 500);
   };
 
-  // Function to get scale description
   const getScaleDescription = (scaleId: string): string => {
     switch (scaleId) {
       case 'major':
@@ -126,7 +118,6 @@ function ScaleExplorerContent() {
     }
   };
 
-  // Function to get common uses of the scale
   const getScaleUses = (scaleId: string): string => {
     switch (scaleId) {
       case 'major':

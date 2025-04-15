@@ -14,7 +14,6 @@ export default function MetronomeTool() {
   const audioContextRef = useRef<AudioContext | null>(null);
   const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
   
-  // Common time signatures
   const timeSignatures = [
     { beats: 2, value: 4 },
     { beats: 3, value: 4 },
@@ -24,14 +23,12 @@ export default function MetronomeTool() {
     { beats: 12, value: 8 },
   ];
 
-  // Initialize audio context when component mounts
   useEffect(() => {
     if (typeof window !== 'undefined') {
       audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
     }
     
     return () => {
-      // Clean up
       if (intervalIdRef.current) {
         clearInterval(intervalIdRef.current);
       }
@@ -44,21 +41,16 @@ export default function MetronomeTool() {
   const playClick = (isAccented: boolean) => {
     if (!audioContextRef.current) return;
     
-    // Create oscillator for the click sound
     const osc = audioContextRef.current.createOscillator();
     const gainNode = audioContextRef.current.createGain();
     
-    // Set the frequency based on whether it's an accented beat
     osc.frequency.value = isAccented ? 1000 : 800;
     
-    // Connect the oscillator to gain and output
     osc.connect(gainNode);
     gainNode.connect(audioContextRef.current.destination);
     
-    // Set volume
     gainNode.gain.value = isAccented ? 0.3 : 0.2;
     
-    // Play a short click
     osc.start();
     osc.stop(audioContextRef.current.currentTime + 0.05);
   };
@@ -71,23 +63,18 @@ export default function MetronomeTool() {
     setIsPlaying(true);
     setCurrentBeat(0);
     
-    // Calculate interval duration based on tempo (BPM)
     const intervalDuration = 60000 / tempo;
     
-    // Play first beat immediately
     playClick(true);
     
     let beat = 1;
     
     intervalIdRef.current = setInterval(() => {
-      // Play click sound (accented on first beat)
       const isAccented = beat === 0;
       playClick(isAccented);
       
-      // Update current beat
       setCurrentBeat(beat);
       
-      // Increment beat and wrap around
       beat = (beat + 1) % timeSignature.beats;
     }, intervalDuration);
   };
@@ -113,10 +100,8 @@ export default function MetronomeTool() {
   const handleTempoChange = (newTempo: number) => {
     setTempo(newTempo);
     
-    // Restart metronome if already playing
     if (isPlaying) {
       stopMetronome();
-      // Small delay to ensure clean restart
       setTimeout(() => {
         startMetronome();
       }, 50);
@@ -126,10 +111,8 @@ export default function MetronomeTool() {
   const handleTimeSignatureChange = (signature: { beats: number, value: number }) => {
     setTimeSignature(signature);
     
-    // Restart metronome if already playing
     if (isPlaying) {
       stopMetronome();
-      // Small delay to ensure clean restart
       setTimeout(() => {
         startMetronome();
       }, 50);
@@ -229,7 +212,6 @@ export default function MetronomeTool() {
           </Button>
         </div>
         
-        {/* Additional tips */}
         <div className="mt-8 pt-6 border-t border-gray-200">
           <h3 className="text-lg font-medium text-gray-700 mb-2">Metronome Tips</h3>
           <ul className="text-gray-600 space-y-2">

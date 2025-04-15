@@ -1,4 +1,3 @@
-// login code
 "use client";
 
 import { useState } from 'react';

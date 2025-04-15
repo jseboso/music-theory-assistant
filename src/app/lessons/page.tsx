@@ -28,7 +28,6 @@ export default function LessonsPage() {
       
       setUser(data.user);
       
-      // Fetch lessons
       try {
         const { data: lessonsData, error } = await supabase
           .from('lessons')
@@ -40,7 +39,6 @@ export default function LessonsPage() {
         const lessonData = lessonsData || [];
         setLessons(lessonData);
         
-        // Extract unique categories
         const uniqueCategories = Array.from(
           new Set(lessonData.map(lesson => lesson.category))
         );
@@ -75,7 +73,6 @@ export default function LessonsPage() {
       user={user}
       onSignOut={handleSignOut}
     >
-      {/* Category Filter */}
       <div className="mb-8">
         <h3 className="text-lg font-medium text-gray-700 mb-3">Categories</h3>
         <div className="flex flex-wrap gap-2">
@@ -97,7 +94,6 @@ export default function LessonsPage() {
         </div>
       </div>
       
-      {/* Lessons Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {filteredLessons.length > 0 ? (
           filteredLessons.map((lesson) => (

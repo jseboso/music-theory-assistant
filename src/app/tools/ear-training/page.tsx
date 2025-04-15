@@ -11,10 +11,8 @@ import {
   getIntervalNote 
 } from '@/components/music/MusicTheory';
 
-// Import Tone for now functionality
 import * as Tone from 'tone';
 
-// Exercise definitions
 const exercises = [
   { id: 'intervals', name: 'Interval Recognition', description: 'Identify the interval between two notes.' },
   { id: 'chords', name: 'Chord Recognition', description: 'Identify major, minor, and other chord types.' },
@@ -47,7 +45,6 @@ function EarTrainingContent() {
   } = useAudio();
 
   useEffect(() => {
-    // Initialize audio
     initializeTone();
   }, [initializeTone]);
 
@@ -88,11 +85,9 @@ function EarTrainingContent() {
     const chordName = chordOptions[chordIndex];
     setCorrectAnswer(chordName);
     
-    // Create chord notes based on chord type
-    const baseNote = 'C4'; // Using C as the base note
+    const baseNote = 'C4';
     let chordNotes = [baseNote];
     
-    // Add appropriate intervals based on chord type
     if (chordName === 'Major') {
       chordNotes.push('E4', 'G4');
     } else if (chordName === 'Minor') {
@@ -109,7 +104,6 @@ function EarTrainingContent() {
       chordNotes.push('E4', 'G4', 'Bb4');
     }
     
-    // Play the chord
     playChord(chordNotes, "2n");
     
     setTimeout(() => {
@@ -128,11 +122,9 @@ function EarTrainingContent() {
     const scaleName = scaleOptions[scaleIndex];
     setCorrectAnswer(scaleName);
     
-    // Create scale notes based on scale type
     const baseOctave = 4;
     let scaleNotes = [];
     
-    // Add appropriate notes based on scale type
     if (scaleName === 'Major') {
       scaleNotes = [`C${baseOctave}`, `D${baseOctave}`, `E${baseOctave}`, `F${baseOctave}`, 
                    `G${baseOctave}`, `A${baseOctave}`, `B${baseOctave}`, `C${baseOctave + 1}`];
@@ -162,7 +154,6 @@ function EarTrainingContent() {
                    `Gb${baseOctave}`, `Ab${baseOctave}`, `Bb${baseOctave}`, `C${baseOctave + 1}`];
     }
     
-    // Play the scale ascending
     const now = Tone.now();
     const synth = createSynth();
     scaleNotes.forEach((note, index) => {
