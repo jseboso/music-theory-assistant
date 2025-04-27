@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
-import { PageContainer } from '@/components/layout/PageContainer';
+import { PageContainer } from '@/components/Layout/PageContainer';
 import { Card } from '@/components/ui/Card';
 import { Button, LinkButton } from '@/components/ui/Button';
 import { Loading } from '@/components/ui/Loading';

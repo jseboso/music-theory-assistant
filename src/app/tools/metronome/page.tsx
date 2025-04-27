@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-import { PageContainer } from '@/components/layout/PageContainer';
+import { PageContainer } from '@/components/Layout/PageContainer';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 

@@ -17,7 +17,11 @@
     "electron:build": "next build && cross-env NODE_ENV=production electron-builder",
     "test": "jest",
     "test:watch": "jest --watch",
-    "cypress": "cypress open"
+    "test:coverage": "jest --coverage",
+    "cypress": "cypress open",
+    "cypress:run": "cypress run",
+    "test:e2e": "start-server-and-test dev http://localhost:3000 cypress:run",
+    "test:all": "npm test && npm run test:e2e"
   },
   "build": {
     "appId": "com.yourname.music-theory-assistant",
@@ -66,6 +70,7 @@
     "@testing-library/react": "^16.3.0",
     "@types/bcrypt": "^5.0.2",
     "@types/cookie": "^0.6.0",
+    "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^20.17.30",
     "@types/react": "^19",
@@ -79,6 +84,7 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8.5.3",
+    "start-server-and-test": "^2.0.11",
     "tailwindcss": "^4.1.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",

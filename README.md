@@ -48,7 +48,7 @@ Music Theory Assistant helps users learn music theory through interactive lesson
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/music-theory-assistant.git
+git clone https://github.com/jseboso/music-theory-assistant.git
 cd music-theory-assistant
 ```
 
@@ -111,6 +111,38 @@ music-theory-assistant/
 ├── public/                    # Static assets
 └── electron/                  # Electron configuration (optional)
 ```
+
+## Testing
+
+The project has a three-layer automated test suite.
+
+| Layer | Tool | What it covers |
+|---|---|---|
+| Unit | Jest | Pure music-theory logic in `src/components/music/MusicTheory.ts` (scale/chord construction, interval math, roman numerals) |
+| Component | Jest + React Testing Library | UI building blocks (`Button`, `Card`, `ProgressBar`, `StatsCard`, `LessonCard`, `PianoKeyboard`) |
+| Integration | Jest | The `/api/auth/login` route handler, with Prisma/bcrypt/JWT mocked so it runs without a real database |
+| End-to-end | Cypress | Real browser flows: homepage navigation, the login form's sign-in/sign-up toggle, and the Scale Explorer / Chord Finder / Metronome tools |
+
+### Running the suite locally
+
+```bash
+# Unit, component, and integration tests
+npm test               # single run
+npm run test:watch     # watch mode while developing
+npm run test:coverage  # single run with a coverage report
+
+# End-to-end tests only (starts the dev server, runs Cypress headless, shuts it down)
+npm run test:e2e
+
+# Everything in one shot: Jest, then the E2E pipeline
+npm run test:all
+```
+
+To run Cypress interactively, run `npm run dev` in one terminal and `npm run cypress` in another instead of `test:e2e`.
+
+### What's covered vs. what isn't yet
+
+Tone.js is mocked in Jest (`__mocks__/tone.js`) since jsdom has no Web Audio API, and the Cypress specs don't submit the login form against a real Supabase project. Actually creating an account, signing in, and the authenticated dashboard/lessons/quizzes flows aren't covered yet and are the natural next addition (most likely via Cypress with a seeded test Supabase project or `cy.intercept` stubs).
 
 ## Audio Features
 

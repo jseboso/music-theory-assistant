@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 
-import { PageContainer } from '@/components/layout/PageContainer';
+import { PageContainer } from '@/components/Layout/PageContainer';
 import { Loading } from '@/components/ui/Loading';
 import { Card } from '@/components/ui/Card';
 import { StatsCard } from '@/components/ui/StatsCard';
